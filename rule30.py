@@ -7,9 +7,6 @@ def window(iterable, stride=3):
 
 initial_state = '00000000000000000000100000000000000000000'
 
-patterns = window(initial_state)
-new_state = ''.join(rule30[pat] for pat in patterns)
-
 def generate_pattern(state, rule30):
     for time in range(20):
         print(state)

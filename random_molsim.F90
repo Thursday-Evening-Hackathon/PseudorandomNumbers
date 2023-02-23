@@ -28,3 +28,23 @@ function Random(idum)
    if (iy < 0) iy=iy+im
    Random=am*ior(iand(im,ieor(ix,iy)),1)     !combine the two generators with masking to ensure nonzero value.
 end function Random
+
+program GenRandoms
+
+   use Random_Module
+   implicit none
+   integer(4) :: inum, iseed, i
+   real(8) :: Random
+   real(8), allocatable :: res(:)
+
+   inum = 5
+   iseed = 1227
+   allocate(res(inum))
+
+   do i = 1, inum
+      res(i) = Random(iseed)
+   end do
+   print *, res(1:inum)
+
+
+end program GenRandoms

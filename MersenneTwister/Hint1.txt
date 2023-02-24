@@ -1,0 +1,26 @@
+1. Initialization:
+    Create a length n array (MT) to store the state of the generator.
+    Set the index to n.
+    Define constants for the lower mask and upper mask.
+    Seed the generator with a given value.
+
+2. Seed:
+    Set the index to n.
+    Initialize the first element of MT to the seed value.
+    For each subsequent element of MT, set it to the result of applying a mathematical function to the previous element of MT.
+
+3. Generate number:
+    If the index is greater than or equal to n, call the twist function to update the state of the generator.
+    Extract the next number from the MT array using the current index.
+    Modify the extracted number using a series of bitwise operations.
+    Increment the index.
+    Return the modified number.
+
+4. Twist:
+    For each element of MT, compute a new value based on a combination of the current element and the next element in the array.
+    Apply additional bitwise operations to the computed value.
+    Update the corresponding element of MT with the computed value.
+    Reset the index to 0.
+
+5. Repeat:
+    Repeat steps 3 and 4 as many times as desired to generate a sequence of random numbers.

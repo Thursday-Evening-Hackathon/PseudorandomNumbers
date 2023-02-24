@@ -1,0 +1,27 @@
+function MersenneTwister(seed):
+    MT = array of 624 integers
+    index = 0
+    MT[0] = seed
+    for i = 1 to 623:
+        MT[i] = lowest 32 bits of (1812433253 * (MT[i-1] xor (MT[i-1] right shift by 30)) + i)
+    
+    function generate_numbers():
+        result = array of 624 integers
+        for i = 0 to 623:
+            y = (MT[i] and 0x80000000) + (MT[(i+1) mod 624] and 0x7fffffff)
+            MT[i] = MT[(i + 397) mod 624] xor (y right shift by 1)
+            if y is odd:
+                MT[i] = MT[i] xor 0x9908b0df
+            result[i] = extract_number()
+        return result
+
+    function extract_number():
+        if index == 0:
+            generate_numbers()
+        y = MT[index]
+        y = y xor (y right shift by 11)
+        y = y xor ((y left shift by 7) and 0x9d2c5680)
+        y = y xor ((y left shift by 15) and 0xefc60000)
+        y = y xor (y right shift by 18)
+        index = (index + 1) mod 624
+        return lowest 32 bits of y

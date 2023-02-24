@@ -1,0 +1,26 @@
+class MersenneTwister:
+    function initialize_MT(seed):
+        MT = [0] * 624
+        index = 0
+        MT[0] = seed
+        for i = 1 to 623:
+            MT[i] = (1812433253 * (MT[i-1] XOR (MT[i-1] >> 30)) + i) bitwise AND 0xFFFFFFFF
+
+    function generate_numbers():
+        result = []
+        for i = 0 to 623:
+            y = (MT[i] bitwise AND 0x80000000) OR (MT[(i + 1) mod 624] bitwise AND 0x7FFFFFFF)
+            MT[i] = MT[(i + 397) mod 624] XOR (y >> 1)
+            if y mod 2 != 0:
+                MT[i] = MT[i] XOR 0x9908B0DF
+            result[i] = extract_number()
+        return result
+
+    function extract_number():
+        y = MT[index]
+        index = (index + 1) mod 624
+        y = y XOR (y >> 11)
+        y = y XOR ((y << 7) bitwise AND 0x9D2C5680)
+        y = y XOR ((y << 15) bitwise AND 0xEFC60000)
+        y = y XOR (y >> 18)
+        return y
